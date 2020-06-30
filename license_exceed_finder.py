@@ -5,7 +5,7 @@ Track ltm log file and execute tcpdump when license throughput exceeded
 
 Usage (Under Bash context):
 Option 1 - run on background (recommended)
-nohup python license_exceed_finder.py
+nohup python license_exceed_finder.py&
 
 Option 2 - run in realtime (if SSH connection is end the script is end as well)
 python license_exceed_finder.py
