@@ -12,6 +12,13 @@ Option 2 - run in realtime (if SSH connection is end the script is end as well)
 python dynconf_workaround.py
 """
 
+
+
+__version__ = "0.1"
+__all__ = ["temp workaround for dynconf problem"]
+__author__ = "DvirPerets"
+__home_page__ = "https://www.linkedin.com/in/dvirperets"
+
 import os, time, re, smtplib
 filename = "/var/log/dynconfd.log"
 file = open(filename,'r')
