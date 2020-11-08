@@ -19,7 +19,7 @@ __author__ = "DvirPerets"
 __home_page__ = "https://www.linkedin.com/in/dvirperets"
 
 import os, time, re
-filename = "/var/log/ltm"
+filename = "/var/log/dynconfd.log"
 file = open(filename,'r')
 #Find the size of the file and move to the end
 st_results = os.stat(filename)
@@ -35,7 +35,9 @@ while True:
        		time.sleep(1)
        		file.seek(where)
     	else:
-		print line, # already has newline
+		#print line, # already has newline
 		if re.match('New results!!! .* resolves to $', line) is not None:
 			print "suspicious log line found, restarting dynconfd service:"
-			os.system('tmsh -c "restart sys service dynconfd"')		
+			time.sleep(5)
+			os.system('tmsh -c "restart sys service dynconfd"')
+			
