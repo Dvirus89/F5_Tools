@@ -1,0 +1,7 @@
+tmsh -c 'delete ltm virtual juiceshop-test.f5agility.com'
+tmsh -c 'delete ltm virtual owasp-juiceshop_80_vs'
+tmsh -c 'delete ltm virtual owasp-juiceshop_443_vs'
+tmsh -c 'delete ltm pool all'
+tmsh -c 'delete ltm node all'
+tmsh -c 'delete net self all'
+tmsh -c 'delete net vlan all'
