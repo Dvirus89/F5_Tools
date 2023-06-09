@@ -1,5 +1,9 @@
 
 #!/bin/bash
+
+source /usr/lib/bigstart/bigip-ready-functions
+wait_bigip_ready
+
 license_pool_path="/var/tmp/license_pool.txt"  # Replace with the actual path to your file
 
 # Read the last line of the file and store it in a variable
