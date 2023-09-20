@@ -53,8 +53,9 @@ for attack_vector_dir in os.listdir('attacks/'):
             except:
                 print("error")
                 write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, allowed="error", blocked="error", supportid="error")) 
+                continue
 
-            match = re.findall(BLOCK_RESPONSE_REGEX_PATTERN, response.text)
+            matchs = re.findall(BLOCK_RESPONSE_REGEX_PATTERN, response.text)
             for match in matchs:
                 print (match)
             if matchs.__len__() > 0:
