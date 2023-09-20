@@ -9,7 +9,7 @@ import re
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-BLOCK_RESPONSE_REGEX_PATTERN=r"Your support ID is- (.*) <br/>" 
+BLOCK_RESPONSE_REGEX_PATTERN=r"Your support ID is: (.*)<br>" 
 TARGET_ENDPOINT="https://asafdemo-partner.emea-ent.f5demos.com"
 TOP_COLUMN="Platform, Attack File Path, Request Allowed, Request Blocked, Support ID (if exists)\n"
 ENTRY_COLUMN="{platform}, {attack_file_path}, {allowed}, {blocked}, {supportid}\n"
@@ -48,7 +48,8 @@ for attack_vector_dir in os.listdir('attacks/'):
                 response = requests.post(full_url, headers=headers, json=data, verify=False)
             else:
                 print("Unsupported HTTP method")
-
+                continue
+            
             matchs = re.findall(BLOCK_RESPONSE_REGEX_PATTERN, response.text)
             for match in matchs:
                 print (match)
