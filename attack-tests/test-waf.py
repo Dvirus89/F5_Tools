@@ -11,8 +11,8 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 BLOCK_RESPONSE_REGEX_PATTERN=r"Your support ID is: (.*)<br><br>" 
 TARGET_ENDPOINT="https://asafdemo-partner.emea-ent.f5demos.com"
-TOP_COLUMN="Platform, Attack File Path, Request Allowed, Request Blocked, Support ID (if exists)\n"
-ENTRY_COLUMN="{platform}, {attack_file_path}, {allowed}, {blocked}, {supportid}\n"
+TOP_COLUMN="Platform, Attack File Path, Seq, Request Allowed, Request Blocked, Support ID (if exists)\n"
+ENTRY_COLUMN="{platform}, {attack_file_path}, {seq}, {allowed}, {blocked}, {supportid}\n"
 OUTPUT_PATH = "report.csv"
 PLATFORM="BIGIP"
 
@@ -33,6 +33,7 @@ for attack_vector_dir in os.listdir('attacks/'):
         # Loop through each request option and send the requests
         count_allow = 0
         count_block = 0
+        count_missed = 0
         for request_data in request_data_list:
             method = request_data.get("method", "GET")
             url = request_data.get("url", "")
@@ -49,10 +50,12 @@ for attack_vector_dir in os.listdir('attacks/'):
                     response = requests.post(full_url, headers=headers, json=data, verify=False)
                 else:
                     print("Unsupported HTTP method")
+                    count_missed += 1
                     continue
             except:
                 print("error")
-                write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, allowed="error", blocked="error", supportid="error")) 
+                write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, seq={str(count_allow+count_block+count_missed)}, allowed="error", blocked="error", supportid="error")) 
+                count_missed += 1
                 continue
 
             matchs = re.findall(BLOCK_RESPONSE_REGEX_PATTERN, response.text)
@@ -61,9 +64,9 @@ for attack_vector_dir in os.listdir('attacks/'):
             if matchs.__len__() > 0:
                 count_block += 1
                 print("\t\t\tblocked")
-                write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, allowed="no", blocked="yes", supportid=match)) 
+                write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, seq={str(count_allow+count_block+count_missed)}, allowed="no", blocked="yes", supportid=match)) 
             else:
                 count_allow += 1
                 print("\t\t\tpassed")
-                write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, allowed="yes", blocked="no", supportid="0")) 
+                write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, seq={str(count_allow+count_block+count_missed)}, allowed="yes", blocked="no", supportid="0")) 
     print(f"summary for {attack_file}: allow={count_allow}, blocked={count_block}")
