@@ -1,0 +1,52 @@
+Proccesing attack vector: xss...
+	Proccesing attack file: attacks/xss/xss_true_output_combined.json...
+		Proccesing attack #0...
+			passed
+		Proccesing attack #1...
+			passed
+		Proccesing attack #2...
+			passed
+		Proccesing attack #3...
+			passed
+		Proccesing attack #4...
+			passed
+		Proccesing attack #5...
+			passed
+		Proccesing attack #6...
+			passed
+		Proccesing attack #7...
+			passed
+		Proccesing attack #8...
+Traceback (most recent call last):
+  File "test-waf.py", line 46, in <module>
+    response = requests.get(full_url, headers=headers, verify=False)
+  File "/usr/lib/python3/dist-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 665, in urlopen
+    httplib_response = self._make_request(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 421, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 416, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.8/http/client.py", line 1332, in getresponse
+    response.begin()
+  File "/usr/lib/python3.8/http/client.py", line 303, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.8/http/client.py", line 264, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/usr/lib/python3.8/socket.py", line 669, in readinto
+    return self._sock.recv_into(b)
+  File "/usr/lib/python3/dist-packages/urllib3/contrib/pyopenssl.py", line 313, in recv_into
+    return self.connection.recv_into(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/OpenSSL/SSL.py", line 1821, in recv_into
+    result = _lib.SSL_read(self._ssl, buf, nbytes)
+KeyboardInterrupt

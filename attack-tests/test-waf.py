@@ -59,5 +59,5 @@ for attack_vector_dir in os.listdir('attacks/'):
             else:
                 count_allow += 1
                 print("\t\t\tpassed")
-                write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, allowed="yes", blocked="no", supportid="")) 
+                write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, allowed="yes", blocked="no", supportid="0")) 
     print(f"summary for {attack_file}: allow={count_allow}, blocked={count_block}")
