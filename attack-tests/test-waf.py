@@ -42,15 +42,19 @@ for attack_vector_dir in os.listdir('attacks/'):
 
             full_url = f"{TARGET_ENDPOINT}{url}"
             response = ""
-            if method == "GET":
-                response = requests.get(full_url, headers=headers, verify=False)
-            elif method == "POST":
-                response = requests.post(full_url, headers=headers, json=data, verify=False)
-            else:
-                print("Unsupported HTTP method")
-                continue
-            
-            matchs = re.findall(BLOCK_RESPONSE_REGEX_PATTERN, response.text)
+            try:
+                if method == "GET":
+                    response = requests.get(full_url, headers=headers, verify=False)
+                elif method == "POST":
+                    response = requests.post(full_url, headers=headers, json=data, verify=False)
+                else:
+                    print("Unsupported HTTP method")
+                    continue
+            except:
+                print("error")
+                write_file(OUTPUT_PATH, ENTRY_COLUMN.format(platform=PLATFORM, attack_file_path=attack_file_path, allowed="error", blocked="error", supportid="error")) 
+
+            match = re.findall(BLOCK_RESPONSE_REGEX_PATTERN, response.text)
             for match in matchs:
                 print (match)
             if matchs.__len__() > 0:
