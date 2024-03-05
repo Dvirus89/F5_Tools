@@ -1,7 +1,7 @@
 
 
 
-# setup one machine #
+#### setup one machine ####
 # hostname
 tmsh -c 'modify /sys global-settings hostname ltm1.bigip'
 # vlan to interface association
@@ -9,22 +9,21 @@ tmsh -c 'create net vlan vlan10 interfaces add { 1.1 }'
 # self ip
 tmsh -c 'create net self self-10 address 10.1.10.10/24 vlan vlan10'
 # routes
-#later
+tmsh -c 'create net route def {gw 10.1.10.1 network default}' 
+# save conf
 tmsh -c 'save sys config'
+#### end of setup one machine ####
 
 
-# end of setup one machine #
-
-
-# online license #
+#### online license ####
 /usr/local/bin/SOAPLicenseClient --basekey XXXXX-XXXXX-XXXXX-XXXXX-XXXXXXX
-# end of online licnese #
+#### end of online licnese ####
 
 
 
-# offline license #
+#### offline license ####
 get_dossier -b 'XXXXX-XXXXX-XXXXX-XXXXX-XXXXXXX'
 vim /config/bigip.license # go to activate.f4.com paste here lic 
 reloadlic
-# end of offline licnese #
+#### end of offline licnese ####
 
