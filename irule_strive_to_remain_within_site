@@ -1,5 +1,5 @@
 when CLIENT_ACCEPTED {
-  set def_pool [LB::server pool]
+    set def_pool [LB::server pool]
 }
 
 when LB_SELECTED {
@@ -13,13 +13,21 @@ when LB_SELECTED {
         }
     }
 
-    if {($client_site ne "unknown" )} {
+    if {($client_site ne "unknown")} {
+        set site_members [list]
         foreach member [active_members -list [LB::server pool]] {
             if {([class match [lindex $member 0] equals $client_site])} {
-                log local0. "match $client_site [lindex $member 0]"
-                LB::reselect pool $def_pool member [lindex $member 0]:[lindex $member 1]
-                break
+                lappend site_members $member
             }
+        }
+
+        if {[llength $site_members] > 0} {
+            set selected_member [lindex $site_members [expr {int(rand() * [llength $site_members])}]]
+            set selected_member_ip [lindex $selected_member 0]
+            set selected_member_port [lindex $selected_member 1]
+
+            log local0. "match $client_site $selected_member_ip"
+            LB::reselect pool $def_pool member $selected_member_ip:$selected_member_port
         }
     }
 }
