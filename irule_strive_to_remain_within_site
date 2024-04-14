@@ -27,7 +27,7 @@ when LB_SELECTED {
             set selected_member_port [lindex $selected_member 1]
 
             log local0. "match $client_site $selected_member_ip"
-            LB::reselect pool $def_pool member $selected_member_ip:$selected_member_port
+            LB::reselect pool [LB::server pool] member $selected_member_ip:$selected_member_port
         }
     }
 }
