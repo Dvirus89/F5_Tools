@@ -1,0 +1,25 @@
+when CLIENT_ACCEPTED {
+  set def_pool [LB::server pool]
+}
+
+when LB_SELECTED {
+    set client_site "unknown"
+
+    foreach site {master1 master2 master3 worker1 worker2} {
+        if {[class match [getfield [IP::client_addr] "%" 1] equals $site]} {
+            set client_site $site
+            log local0. "client site: $site"
+            break
+        }
+    }
+
+    if {($client_site ne "unknown" )} {
+        foreach member [active_members -list [LB::server pool]] {
+            if {([class match [lindex $member 0] equals $client_site])} {
+                log local0. "match $client_site [lindex $member 0]"
+                LB::reselect pool $def_pool member [lindex $member 0]:[lindex $member 1]
+                break
+            }
+        }
+    }
+}
