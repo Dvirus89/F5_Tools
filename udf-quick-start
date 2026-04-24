@@ -30,6 +30,14 @@ reloadlic
 
 ## DO ##
 
+## Download from BIGIP ##
+curl -L -o /var/config/rest/downloads/f5-declarative-onboarding-1.47.0-14.noarch.rpm https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.47.0/f5-declarative-onboarding-1.47.0-14.noarch.rpm
+FN=f5-declarative-onboarding-1.47.0-14.noarch.rpm
+CREDS=admin:ilovesleep
+IP=127.0.0.1
+DATA="{\"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/$FN\"}"
+curl -kvu $CREDS "https://$IP/mgmt/shared/iapp/package-management-tasks" -H "Origin: https://$IP" -H 'Content-Type: application/json;charset=UTF-8' --data $DATA
+
 ## do.json ##
 ```
 {
