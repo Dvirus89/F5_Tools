@@ -13,7 +13,7 @@ echo "Waiting for DO to be ready..."
 sleep 30
 
 # Ask for license key
-read -p "Please enter the license key for BIGIP 2: " LICENSE_KEY
+read -p "Please enter the license key for BIGIP 2: " LICENSE_KEY < /dev/tty
 
 # Create do.json for BIGIP 2
 cat <<EOF > do.json
