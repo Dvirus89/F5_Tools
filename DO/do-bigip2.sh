@@ -8,12 +8,12 @@ IP=127.0.0.1
 DATA="{\"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/$FN\"}"
 curl -kvu $CREDS "https://$IP/mgmt/shared/iapp/package-management-tasks" -H "Origin: https://$IP" -H 'Content-Type: application/json;charset=UTF-8' --data $DATA
 
-# Wait for DO to be ready
-echo "Waiting for DO to be ready..."
-sleep 30
-
 # Ask for license key
 read -p "Please enter the license key for BIGIP 2: " LICENSE_KEY < /dev/tty
+
+# Wait for DO to be ready
+echo "Waiting for DO to be ready..."
+sleep 10
 
 # Create do.json for BIGIP 2
 cat <<EOF > do.json
