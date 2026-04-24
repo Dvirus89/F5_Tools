@@ -8,12 +8,12 @@ You can run these scripts directly from the repository using the following comma
 
 ### BIG-IP 1
 ```bash
-curl -s https://raw.githubusercontent.com/Dvirus89/F5_Tools/main/DO/do-bigip1.sh | bash
+curl -s https://raw.githubusercontent.com/Dvirus89/F5_Tools/master/DO/do-bigip1.sh | bash
 ```
 
 ### BIG-IP 2
 ```bash
-curl -s https://raw.githubusercontent.com/Dvirus89/F5_Tools/main/DO/do-bigip2.sh | bash
+curl -s https://raw.githubusercontent.com/Dvirus89/F5_Tools/master/DO/do-bigip2.sh | bash
 ```
 
 ## Description
