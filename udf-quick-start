@@ -166,7 +166,11 @@ curl http://127.0.0.1/mgmt/shared/declarative-onboarding --basic -u "admin:ilove
             "consoleInactivityTimeout": 12000,
             "autoPhonehome": false
         },
-
+        "myLicense": {
+            "class": "License",
+            "licenseType": "regKey",
+            "regKey": "AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE"
+        },
         "myDns": {
             "class": "DNS",
             "nameServers": ["8.8.8.8"],
@@ -324,7 +328,11 @@ curl http://127.0.0.1/mgmt/shared/declarative-onboarding --basic -u "admin:ilove
             "consoleInactivityTimeout": 12000,
             "autoPhonehome": false
         },
-
+        "myLicense": {
+            "class": "License",
+            "licenseType": "regKey",
+            "regKey": "UAQWW-QSHDS-SOASN-TIAOB-FDPXCQE"
+        },
         "myDns": {
             "class": "DNS",
             "nameServers": ["8.8.8.8"],
